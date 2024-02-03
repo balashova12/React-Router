@@ -138,7 +138,7 @@ form[action$="destroy"] button {
 #sidebar > div {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e3e3e3;
@@ -159,7 +159,7 @@ form[action$="destroy"] button {
 }
 
 #sidebar > div form input[type="search"].loading {
-  background-image: none;
+  background-image: black;
 }
 
 #search-spinner {
@@ -252,7 +252,7 @@ i {
 }
 
 #contact {
-  max-width: 40rem;
+  max-width: 20rem;
   display: flex;
 }
 

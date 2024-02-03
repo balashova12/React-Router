@@ -20,6 +20,7 @@ import EditContact, {
 import { action as destroyAction } from "./routes/destroy";
 import Index from "./routes/index";
 
+// Create a router using createBrowserRouter
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,7 +56,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+// Render the root component using ReactDOM.createRoot
 ReactDOM.createRoot(document.getElementById('root')).render(
+  // Wrap the RouterProvider in React.StrictMode for additional checks
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>,

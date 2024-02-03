@@ -1,27 +1,37 @@
 import { Form, useLoaderData, useFetcher } from "react-router-dom";
 import { getContact, updateContact } from "../contacts";
 
+// Loader function to fetch contact details based on contactId
 export async function loader({ params }) {
-    const contact = await getContact(params.contactId);
-    if (!contact) {
-      throw new Response("", {
-        status: 404,
-        statusText: "Not Found",
-      });
-    }
-    return { contact };
-}
-
-export async function action({ request, params }) {
-    let formData = await request.formData();
-    return updateContact(params.contactId, {
-      favorite: formData.get("favorite") === "true",
+  // Fetch contact details
+  const contact = await getContact(params.contactId);
+  // If the contact is not found, throw a 404 error
+  if (!contact) {
+    throw new Response("", {
+      status: 404,
+      statusText: "Not Found",
     });
+  }
+  // Return the contact details
+  return { contact };
 }
 
+// Action function to handle updating contact favorite status
+export async function action({ request, params }) {
+  // Get form data from the request
+  let formData = await request.formData();
+  // Update the contact's favorite status based on the form data
+  return updateContact(params.contactId, {
+    favorite: formData.get("favorite") === "true",
+  });
+}
+
+// Contact component displaying contact details
 export default function Contact() {
+  // Load contact data from the loader
   const { contact } = useLoaderData();
   
+  // Render the contact details
   return (
     <div id="contact">
       <div>
@@ -81,12 +91,17 @@ export default function Contact() {
   );
 }
 
+// Favorite component to handle marking contacts as favorites
 function Favorite({ contact }) {
+  // Use fetcher and formData from react-router-dom
   const fetcher = useFetcher();
+  // Determine the current favorite status
   let favorite = contact.favorite;
   if (fetcher.formData) {
     favorite = fetcher.formData.get("favorite") === "true";
   }
+  
+  // Render the favorite button within a fetcher Form
   return (
     <fetcher.Form method="post">
       <button
